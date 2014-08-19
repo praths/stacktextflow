@@ -24,17 +24,9 @@
 		<dict>
 			<key>End</key>
 			<array>
-				<string>js/jquery-1.11.0.min.js</string>
-				<string>js/bootstrap.min.js</string>
-				<string>js/bootbox.min.js</string>
-				<string>js/script.js</string>
+				<string>js/injectScript.js</string>
 			</array>
 		</dict>
-		<key>Stylesheets</key>
-		<array>
-			<string>css/bootstrap.css</string>
-			<string>css/style.css</string>
-		</array>
 	</dict>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
