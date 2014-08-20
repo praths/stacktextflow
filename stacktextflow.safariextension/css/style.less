@@ -8,7 +8,7 @@
 
 #sto-editor {
 	overflow: scroll;
-	min-height: 300px;
+	min-height: 350px;
 	font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif;
 }
 
@@ -19,4 +19,174 @@
 	margin-right: 10px;
 }
 
+#code-editor {
+	height: 300px;
+}
 
+#codeWriteModal {
+	.modal-body {
+		padding: 0;
+	}
+}
+
+#modeGroup {
+	margin: 10px;
+}
+
+#linkAYLF .result .well {
+	margin-bottom: 5px;
+	overflow: hidden;	
+	position: relative;
+	
+	button {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+	}
+	
+	a {
+		word-wrap:break-word;
+	}
+}
+
+
+
+//spinner
+//by  Javier Marquez http://codepen.io/arqex/pen/mKBcE
+
+@ballSize: 50px;
+@separation: 50%;
+@duration: 1s;
+
+.spinner {
+  height: @ballSize;
+  width: @ballSize;
+  margin: 50px auto;
+  position: relative;
+  animation: invert @duration*2 infinite steps(2,end);
+}
+
+.ball {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  background: rgb(255, 120, 60);
+}
+
+.ball-1 {
+  animation: ball1 @duration infinite alternate linear;
+}
+.ball-2 {
+  animation: ball2 @duration infinite alternate linear;
+}
+.ball-3 {
+  animation: ball3 @duration infinite alternate linear;
+}
+.ball-4 {
+  animation: ball4 @duration infinite alternate linear;
+}
+
+@keyframes invert {
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes ball1{
+  12% {
+    transform: none;
+  }
+  26% {
+    transform: translateX(@separation / 2) scale(1, .8) 
+  }
+  40% {
+    transform: translateX(@separation) scale(.8, .8);
+  }
+  60% {
+    transform: translateX(@separation) scale(.8, .8);
+  }
+  74% {
+    transform: translate(@separation, @separation / 2) scale(.6, .8)    
+  }
+  88% {
+    transform: translate(@separation, @separation) scale(.6, .6);
+  }
+  100% {
+    transform: translate(@separation, @separation) scale(.6, .6);
+  }
+}
+
+@keyframes ball2{
+  12% {
+    transform: none;
+  }
+  26% {
+    transform: translateX(@separation / 2) scale(1, .8) 
+  }
+  40% {
+    transform: translateX(@separation) scale(.8, .8);
+  }
+  60% {
+    transform: translateX(@separation) scale(.8, .8);
+  }
+  74% {
+    transform: translate(@separation, -@separation / 2) scale(.6, .8)  
+  }
+  88% {
+    transform: translate(@separation, -@separation) scale(.6, .6);
+  }
+  100% {
+    transform: translate(@separation, -@separation) scale(.6, .6);
+  }
+}
+
+@keyframes ball3{
+  12% {
+    transform: none;
+  }
+  26% {
+    transform: translateX(-@separation / 2) scale(1, .8) 
+  }
+  40% {
+    transform: translateX(-@separation) scale(.8, .8);
+  }
+  60% {
+    transform: translateX(-@separation) scale(.8, .8);
+  }
+  74% {
+    transform: translate(-@separation, @separation / 2) scale(.6, .8)  
+  }
+  88% {
+    transform: translate(-@separation, @separation) scale(.6, .6);
+  }
+  100% {
+    transform: translate(-@separation, @separation) scale(.6, .6);
+  }
+}
+
+@keyframes ball4{
+  12% {
+    transform: none;
+  }
+  26% {
+    transform: translateX(-@separation / 2) scale(1, .8) 
+  }
+  40% {
+    transform: translateX(-@separation) scale(.8, .8);
+  }
+  60% {
+    transform: translateX(-@separation) scale(.8, .8);
+  }
+  74% {
+    transform: translate(-@separation, -@separation / 2) scale(.6, .8)  
+  }
+  88% {
+    transform: translate(-@separation, -@separation) scale(.6, .6);
+  }
+  100% {
+    transform: translate(-@separation, -@separation) scale(.6, .6);
+  }
+}

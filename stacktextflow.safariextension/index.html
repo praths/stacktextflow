@@ -5,9 +5,10 @@
 		<title>stacktextflow</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/style.css">
+		<script src="js/prefixfree.min.js"></script>
 	</head>
 	<body>	
-		<div class="container">
+		<div class="container-fluid">
 			<div id="sto-container">
 				<div id="sto-menu">
 					<button data-command="italic" class="btn btn-default"><span class="glyphicon glyphicon-italic"></span></button>
@@ -15,10 +16,11 @@
 					
 					<span class="sto-seperator"></span>
 					
-					<button data-command="createLink" class="btn btn-default"><span class="glyphicon glyphicon-link"></span></button>
-					<button data-command="formatBlock" data-value="blockquote" class="btn btn-default">”</button>
-					<button data-command="formatBlock" data-value="code" class="btn btn-default">{ }</button>
-					<button data-command="insertHTML" data-value="<img src='nix.jpg' />" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
+					<button data-command="createLink" data-shortcut="L" class="btn btn-default" title="Insert a link Ctrl+L"><span class="glyphicon glyphicon-link"></span></button>
+					<button data-command="formatBlock" data-shortcut="Q" data-value="blockquote" class="btn btn-default" title="Insert a blockquote Ctrl+Q">”</button>
+					<button data-command="formatBlock" data-shortcut="K" data-value="pre"class="btn btn-default" title="Wrap into code area Ctrl+K">{ }</button>
+					<button data-command="writeCode" data-shortcut="D" class="btn btn-default" title="Write Code Ctrl+D"><span class="glyphicon glyphicon-leaf"></span></button>
+					<button data-command="insertHTML" data-shortcut="G" data-value="<img src='nix.jpg' />" class="btn btn-default" title="Insert an image Ctrl+G"><span class="glyphicon glyphicon-picture"></span></button>
 					
 					<span class="sto-seperator"></span>
 					
@@ -28,22 +30,73 @@
 					
 					<span class="sto-seperator"></span>
 					
-					<button data-command="insertOrderedList" class="btn btn-default">1. <span class="glyphicon glyphicon-list"></span></button>
-					<button data-command="insertUnorderedList" class="btn btn-default"><span class="glyphicon glyphicon-stop"></span> <span class="glyphicon glyphicon-list"></span> </button>
+					<button data-command="insertOrderedList" data-shortcut="O" class="btn btn-default" title="Insert an ordered list Ctrl+O">1. <span class="glyphicon glyphicon-list"></span></button>
+					<button data-command="insertUnorderedList" data-shortcut="U" class="btn btn-default"  title="Insert an unordered list Ctrl+U"><span class="glyphicon glyphicon-stop"></span> <span class="glyphicon glyphicon-list"></span> </button>
 					
 				</div>
 				<div id="sto-editor" class="form-control" contenteditable>
+					NSString string java count python
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed ante at lorem adipiscing dictum et sit amet metus. Morbi sit amet lectus ut risus pharetra tristique. Nunc lobortis, odio ac imperdiet sollicitudin, nisl elit bibendum justo, eu pulvinar odio dui ut orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent interdum nulla tortor, eget iaculis augue euismod nec. Donec eget lorem turpis. Sed feugiat malesuada purus, in posuere augue congue quis. Etiam nec volutpat tortor. Fusce sit amet nulla tellus. Curabitur sapien nisi, placerat nec magna a, mattis bibendum odio. Fusce rutrum, justo luctus tempor rutrum, urna orci ornare felis, a cursus est libero at nulla.
 				</div>
 				<div class="sto-bottom">
-					<button class="btn btn-success" id="sto-post">Post Your Answer</button>
+					<button class="btn btn-success btn-lg" id="sto-post">Post Your Answer</button>
 					<button class="btn btn-danger btn-xs" id="sto-discard">Discard</button>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="codeWriteModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							<h4 class="modal-title">Write Code</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group" id="modeGroup">
+								<select id="codew-modes" class="form-control input-sm"></select>
+							</div>
+							<div id="code-editor"></div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+							<button type="button" class="btn btn-primary" id="code-insert">Insert</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="linkModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							<h4 class="modal-title">Add Link</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<input type="url" value="http://" id="linkField" class="form-control" />
+							</div>
+							<hr />
+							<div id="linkAYLF">
+								<h4 class="lead text-muted text-center">Are you looking for...</h4>
+								<div class="result"></div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							<button type="button" class="btn btn-primary" id="link-insert">Insert</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/bootbox.min.js"></script>
+		
+		<script src="js/ace/ace.js"></script>
+		<script src="js/ace/ext-modelist.js"></script>
+		<script src="js/ace/ext-language_tools.js"></script>
+		
 		<script src="js/script.js"></script>
 	</body>
 </html>
