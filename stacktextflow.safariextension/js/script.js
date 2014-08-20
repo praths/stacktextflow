@@ -1,20 +1,15 @@
 var stacktextflow = {
+
+	editor: $("#sto-editor"),
 	
-	/** This function is called to initialize the editor */
-	init: function (){
-		stacktextflow.editor = $("#sto-editor");
-		
+	/* This function is called to initialize the editor */
+	init: function (){		
+		document.execCommand("styleWithCSS", false, false);
+
 		/* Activating Bootstrap Tooltips */
 		$('#sto-menu button').tooltip({
 			"delay": { show: 650, hide: 50 },
 			"placement": "bottom"
-		});
-		
-		/* Always paste raw text */
-		stacktextflow.editor.on('paste',function(e) {
-		    e.preventDefault();
-		    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
-		    document.execCommand('insertText', false, text);
 		});
 		
 		/* Enabling messaging with the injectScript */
@@ -24,35 +19,16 @@ var stacktextflow = {
 		stacktextflow.postMessage({ 
 			"command": "getSEEditorValue"
 		});
-		
-		/* Setting up the Ace code editor */
-		ace.require("ace/ext/language_tools");
-		
-		stacktextflow.cEditor = ace.edit("code-editor");
-	    stacktextflow.cEditor.setTheme("ace/theme/monokai");
-	    stacktextflow.cEditor.getSession().setMode("ace/mode/javascript");
-	    stacktextflow.cEditor.setOptions({
-	        enableBasicAutocompletion: true,
-	        enableLiveAutocompletion: true
-	    });
 	    
-	    var codewSelect = $("#codew-modes");
-	    var modes = require("ace/ext/modelist").modesByName;
-		for (var key in modes) {
-			if (modes.hasOwnProperty(key)) {
-				codewSelect.append('<option value="' + key + '">' + modes[key].caption + '</option>');
-			}
-		}
-		codewSelect.find("[value=javascript]").prop("selected",true);
-		codewSelect.change(stacktextflow.events.changedCEditMode);
-		
-		stacktextflow.bindUI();
+		stacktextflow.setupAce();
+		stacktextflow.bind();
 	},
 	
-	bindUI: function (){
-		$("#sto-menu").on("click", "button", stacktextflow.menuButtonClicked);
-		$("#sto-post").click(stacktextflow.post);
-		$("#sto-discard").click(stacktextflow.discard);
+	/* Bind all events */
+	bind: function (){
+		$("#sto-menu").on("click", "button", stacktextflow.events.menuButtonClicked);
+		$("#sto-post").click(stacktextflow.events.post);
+		$("#sto-discard").click(stacktextflow.events.discard);
 		
 		/* The "insert" button handler in the code modal */
 		$("#code-insert").click(stacktextflow.events.insertCode);
@@ -65,25 +41,52 @@ var stacktextflow = {
 		
 		/* Binding editor events */
 		stacktextflow.editor.on("input keyup paste", stacktextflow.events.edited);
-		stacktextflow.editor.on("mousedown keydown focus", stacktextflow.events.changedCaretPosition);
+		stacktextflow.editor.on("mouseup keyup focus", stacktextflow.events.changedCaretPosition);
+		
+		stacktextflow.editor.on('paste', stacktextflow.events.paste);
+	},
+
+	/* Setting up the Ace code editor */
+	setupAce: function(){
+		ace.require("ace/ext/language_tools");
+		
+		stacktextflow.cEditor = ace.edit("code-editor");
+	    stacktextflow.cEditor.setTheme("ace/theme/monokai");
+	    stacktextflow.cEditor.getSession().setMode("ace/mode/javascript");
+	    stacktextflow.cEditor.setOptions({
+	        enableBasicAutocompletion: true,
+	        enableLiveAutocompletion: true
+	    });
+
+		var codewSelect = $("#codew-modes");
+	    var modes = require("ace/ext/modelist").modesByName;
+		for (var key in modes) {
+			if (modes.hasOwnProperty(key)) {
+				codewSelect.append('<option value="' + key + '">' + modes[key].caption + '</option>');
+			}
+		}
+		codewSelect.find("[value=javascript]").prop("selected",true);
+		codewSelect.change(stacktextflow.events.changedCEditMode);
 	},
 	
-	/** Cotains all event handlers */
+	/* Cotains all event handlers */
 	events: {
 	
+		/* The "Insert" button in the "Write Code" modal was clicked */
 		insertCode: function (){
-			/* The "Insert" button in the "Write Code" modal was clicked */
 			$("#codeWriteModal").modal("hide");
 			
 			stacktextflow.restoreSelection();
+			document.execCommand('removeFormat', false);
 			document.execCommand("insertHTML", false, "<div><pre>" + stacktextflow.cEditor.getValue() + "</pre></div><br />");
+			stacktextflow.events.changedCaretPosition();
 		},
 		
 		insertLink: function (){
 			stacktextflow.insertLink($("#linkField").val());
 		},
 		
-		/** The main editor's content has changed, notify the injectScript which will update the stackexchange editor */
+		/* The main editor's content has changed, notify the injectScript which will update the stackexchange editor */
 		edited: function (){
 			stacktextflow.postMessage({ 
 				"command": "edited",
@@ -91,28 +94,27 @@ var stacktextflow = {
 			});
 		},
 		
-		/** The user clicked discard, notify the injectScript which will discard in the stackexchange editor */
+		/* The user clicked discard, notify the injectScript which will discard in the stackexchange editor */
 		discard: function (){
-			//
 			stacktextflow.postMessage({ 
 				"command": "discard",
 			});
 		},
 		
+		/* Send the inject script that we want to submit the form */
 		post: function (){
-			//Post the answer thru the submit form
 			stacktextflow.postMessage({ 
 				"command": "post",
 			});
 		},
 		
+		/* Detect shortcuts and click */
 		keydown: function (e){
-			//Detect shortcuts and click
 			if(e.metaKey) return !$('#sto-menu > button[data-shortcut="' + String.fromCharCode(e.keyCode).toUpperCase() + '"]').click().length;
 		},
 		
+		/* The value of the mode select above the code editor was changed, update the mode */
 		changedCEditMode: function (){
-			//The value of the mode select above the code editor was changed, update the mode
 			var mode = require("ace/ext/modelist").modesByName[$("#codew-modes").val()];
 			stacktextflow.cEditor.getSession().setMode({
 			   path: mode.mode,
@@ -120,16 +122,45 @@ var stacktextflow = {
 			});
 		},
 		
+		/* Receiving messages from the inject script */
 		receivedMessage: function(event){
-			//Receiving messages from the inject script
 			if(event.data.command == "SEEditorValue"){
 				stacktextflow.editor.html(event.data.value);
 			}
 		},
 		
 		changedCaretPosition: function (){
-			
-		}
+			if(stacktextflow.isSelectionInsideElement("a")){
+				$("#menu-createLink").attr("data-command","unlink");
+			} else {
+				$("#menu-createLink").attr("data-command","createLink");
+			}
+		},
+		
+		/* Always paste raw text */
+		paste: function(e) {
+		    e.preventDefault();
+		    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+		    document.execCommand('insertText', false, text);
+		},
+
+		/* One of the main editor buttons was clicked */
+		menuButtonClicked: function (e){
+			var cmd = e.currentTarget.getAttribute('data-command');
+			if(cmd == "createLink"){
+				stacktextflow.createLink();
+			}
+			else if(cmd == "writeCode"){
+				stacktextflow.writeCode();
+			}
+			else if(cmd == "heading"){
+				stacktextflow.changeHeading();
+			}
+			else {
+				console.log(cmd);
+				document.execCommand(cmd, false, e.currentTarget.getAttribute('data-value'));	
+			}
+		},
 		
 	},
 	
@@ -137,13 +168,14 @@ var stacktextflow = {
 		$("#linkModal").modal("hide");
 	
 		stacktextflow.restoreSelection();
-		document.execCommand("createLink", false, link);	
+		document.execCommand("createLink", false, link);
+		stacktextflow.events.changedCaretPosition();
 	},
 	
 	
-	//Utilties for handling selection
+	/* Utilties for handling selection */
 	saveSelection: function() {
-		//Store the the cursor postition/selection to restore it later
+		/* Store the the cursor postition/selection to restore it later */
 	    if (window.getSelection) {
 	        sel = window.getSelection();
 	        if (sel.getRangeAt && sel.rangeCount) {
@@ -165,6 +197,7 @@ var stacktextflow = {
 	        } else if (document.selection && stacktextflow.storedSelection.select) {
 	            stacktextflow.storedSelection.select();
 	        }
+	        stacktextflow.events.changedCaretPosition();
 	    }
 	},
 	
@@ -197,62 +230,62 @@ var stacktextflow = {
 	    }
 	    return false;
 	},
-	
-	menuButtonClicked: function (e){
-		//One of the main editor buttons was clicked
-		var cmd = e.currentTarget.getAttribute('data-command');
-		if(cmd == "createLink"){
-			//User wants to add an link
-			stacktextflow.saveSelection();
-			
-			var selection = stacktextflow.getSelectionText()
-			
-			//Query DuckDuckGo
-			var result = $("#linkAYLF .result");
-			
-			if(selection) {
-				result.html('<div class="spinner"><div class="ball ball-1"></div><div class="ball ball-2"></div><div class="ball ball-3"></div><div class="ball ball-4"></div></div>');
-			
-				$.ajax({
-					type: 'GET',
-					url: 'https://api.duckduckgo.com/',
-					data: { q: selection, format: 'json', pretty: 1 },
-					jsonpCallback: 'jsonp',
-					dataType: 'jsonp'
-			    }).then(function (data) {
-			    	if(!data.AbstractURL) {
-				    	result.html('<h4 class="lead text-muted text-center">No results</h4>');
-			    	} else {
-			    		var url = data.AbstractURL;
-				    	result.html('<div class="well"><h4>' + data.Heading + '</h4><p>' + data.Abstract + '</p><a href="' + url + '">' + url + '</a><button class="btn btn-primary">Use Link</button></div><div class="text-muted"><small>Quick Answers provided by DuckDuckGo</small></div>').find("button").one("click",function (){
-					    	stacktextflow.insertLink(url);
-				    	});
-			    	}
-			    });
-			}
-			else {
-				result.html('<h4 class="lead text-muted text-center">Select text in the editor to see suggestions.</h4>');
-			}
-				
-			$("#linkModal").modal("show").one("shown.bs.modal", function (){
-				$("#linkField").focus();
-			});
-		}
-		else if(cmd == "writeCode"){
-			//Launching the write code modal
-			stacktextflow.saveSelection();
-			
-			stacktextflow.cEditor.setValue(""); 
-			$("#codeWriteModal").modal("show").one("shown.bs.modal", function (){
-				stacktextflow.cEditor.focus();
-			});
-			
+
+	createLink: function(){
+		stacktextflow.saveSelection();
+		
+		var selection = stacktextflow.getSelectionText();
+		
+		/* Query DuckDuckGo */
+		var result = $("#linkAYLF .result");
+		
+		if(selection) {
+			result.html('<div class="spinner"><div class="ball ball-1"></div><div class="ball ball-2"></div><div class="ball ball-3"></div><div class="ball ball-4"></div></div>');
+		
+			$.ajax({
+				type: 'GET',
+				url: 'https://api.duckduckgo.com/',
+				data: { q: selection, format: 'json', pretty: 1 },
+				jsonpCallback: 'jsonp',
+				dataType: 'jsonp'
+		    }).then(function (data) {
+		    	if(!data.AbstractURL) {
+			    	result.html('<h4 class="lead text-muted text-center">No results</h4>');
+		    	} else {
+		    		var url = data.AbstractURL;
+			    	result.html('<div class="well"><h4>' + data.Heading + '</h4><p>' + data.Abstract + '</p><a href="' + url + '">' + url + '</a><button class="btn btn-primary">Use Link</button></div><div class="text-muted"><small>Quick Answers provided by DuckDuckGo</small></div>').find("button").one("click",function (){
+				    	stacktextflow.insertLink(url);
+			    	});
+		    	}
+		    });
 		}
 		else {
-			document.execCommand(cmd, false, e.currentTarget.getAttribute('data-value'));	
+			result.html('<h4 class="lead text-muted text-center">Select text in the editor to see suggestions.</h4>');
+		}
+			
+		$("#linkModal").modal("show").one("shown.bs.modal", function (){
+			$("#linkField").focus();
+		});
+	},
+
+	writeCode: function(){
+		stacktextflow.saveSelection();
+				
+		stacktextflow.cEditor.setValue(""); 
+		$("#codeWriteModal").modal("show").one("shown.bs.modal", function (){
+			stacktextflow.cEditor.focus();
+		});
+	},
+
+	changeHeading: function(){
+		if(stacktextflow.isSelectionInsideElement("h1")){
+			document.execCommand("formatBlock", false, "h2")
+		} else {
+			console.log("dfs")
+			document.execCommand("formatBlock", false, "h1");
 		}
 	},
-	
+
 	postMessage: function (o){
 		window.parent.postMessage(o, "*");
 	},
