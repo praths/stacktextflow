@@ -14,11 +14,7 @@ var stacktextflow = {
 		
 		/* Enabling messaging with the injectScript */
 		window.addEventListener("message", stacktextflow.events.receivedMessage, false);
-	
-		/* Request the value of the stackexchange editor by messaging injectScript */
-		stacktextflow.postMessage({ 
-			"command": "getSEEditorValue"
-		});
+		
 	    
 		stacktextflow.setupAce();
 		stacktextflow.bind();
@@ -187,7 +183,7 @@ var stacktextflow = {
 	},
 
 	restoreSelection: function() {
-		//Restore the the cursor postition/selection
+		/* Restore the the cursor postition/selection */
 	    if (stacktextflow.storedSelection) {
 	    	stacktextflow.editor.focus();
 	        if (window.getSelection) {

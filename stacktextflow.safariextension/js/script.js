@@ -14,11 +14,7 @@ var stacktextflow = {
 		
 		/* Enabling messaging with the injectScript */
 		window.addEventListener("message", stacktextflow.events.receivedMessage, false);
-	
-		/* Request the value of the stackexchange editor by messaging injectScript */
-		stacktextflow.postMessage({ 
-			"command": "getSEEditorValue"
-		});
+		
 	    
 		stacktextflow.setupAce();
 		stacktextflow.bind();
@@ -253,7 +249,7 @@ var stacktextflow = {
 			    	result.html('<h4 class="lead text-muted text-center">No results</h4>');
 		    	} else {
 		    		var url = data.AbstractURL;
-			    	result.html('<div class="well"><h4>' + data.Heading + '</h4><p>' + data.Abstract + '</p><a href="' + url + '">' + url + '</a><button class="btn btn-primary">Use Link</button></div><div class="text-muted"><small>Quick Answers provided by DuckDuckGo</small></div>').find("button").one("click",function (){
+			    	result.html('<div class="well"><h4>' + data.Heading + '</h4><p>' + data.Abstract + '</p><a href="' + url + '" target="_blank">' + url + '</a><button class="btn btn-primary">Use Link</button></div><div class="text-muted"><small>Quick Answers provided by DuckDuckGo</small></div>').find("button").one("click",function (){
 				    	stacktextflow.insertLink(url);
 			    	});
 		    	}
