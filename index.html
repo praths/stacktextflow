@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>stacktextflow</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link href="css/cover.css" rel="stylesheet">
+		<script src="js/prefixfree.min.js"></script>
+	</head>
+	<body  data-spy="scroll">	
+		<div class="site-wrapper" data-target=".masthead-nav">
+			
+			<div class="site-wrapper-inner" id="home">
+			
+				<div class="cover-container">
+					
+					
+					<div class="masthead">
+						<div class="inner clearfix">
+							<h3 class="masthead-brand">stacktextflow</h3>
+							<ul class="nav masthead-nav">
+								<li class="active"><a href="#home">Home</a></li>
+								<li><a href="#feautres">Features</a></li>
+								<li><a href="#help">Help us</a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="inner cover">
+						<h1 class="cover-heading">The stackoverflow editor you'll love.</h1>
+						<p class="lead">A browser plugin that replaces the default stackoverflow editor with a powerful WYSIWYG editor.</p>
+						<p class="lead">
+							<a href="#rcontent" class="btn invert btn-lg btn-default">Learn more</a>
+						</p>
+					</div>
+				
+				</div>
+		
+			</div>
+		
+		</div>
+		
+		<div class="container" id="rcontent">
+			<div class="row">
+				<h1 class="text-center" id="feautres">Features</h1>
+			</div>
+			<div class="row feautre-row">
+				<div class="col-sm-6">
+					<img src="img/live.gif" class="img-responsive">
+				</div>
+				<div class="col-sm-6">
+					<h2>See the format you're applying</h2>
+					<p class="lead">stacktextflow is a WYSIWYG editor so of course you see the formatting you choose right there in the editor. Make text bold or italic, add headings and blockquotes, insert code and pictures and hyperlinks.</p>
+				</div>
+			</div>
+			<div class="row feautre-row ">
+				<div class="col-sm-6">
+					<img src="img/linksuggestions.gif" class="img-responsive">
+				</div>
+				<div class="col-sm-6">
+					<h2>Don't search, add a link</h2>
+					<p class="lead">Select a command, a class or anything you would like to link to click on the link button and stacktextflow will try to provide you a suggestion. NSString, Java String, Count Python, DuckDuckGo knows for nearly everything a quick link.</p>
+				</div>
+			</div>
+			<div class="row feautre-row">
+				<div class="col-sm-6">
+					<img src="img/code.gif" class="img-responsive">
+				</div>
+				<div class="col-sm-6">
+					<h2>Code on the fly</h2>
+					<p class="lead">We built in the Ace code editor. Writing code on stackoverflow has never been so easy before. Syntax highlighting, suggestions and syntax error warnings makes coding as easy as in your favorite editor.
+				</div>
+			</div>
+			<div class="row">
+				<h2 class="text-center">...and much more.</h2>
+			</div>
+		</div>
+		<div class="download">	
+			<div class="container">
+				<h1>Download</h1>
+				<p class="lead">You can download the alpha plugin for Safari. This is just a preview and we really don't recommend using it for answering questions.</p>
+			</div>
+		</div>
+		<div class="container" id="help">	
+			<div class="row">
+				<div class="col-sm-6">
+					<img src="img/Uncle_Sam.jpg" class="img-responsive">
+				</div>
+				<div class="col-sm-6">
+					<h1 id="feautres">We need <i><b>your</b></i> help!</h1>
+					<p class="lead">We need your help to create stacktextflow! Everybody who likes the idea of stacktextflow is invited to contribute. Only if a lot of people help this project can be realized.</p>
+					<p class="lead">stacktextflow is completely written in JavaScript, if you want to contribute to the code you have to know JavaScript. If you don't know JavaScript you can help anyway because we also need people creating styles, testing the plugin and reporting bugs.</p>
+					<p class="lead">
+						Read CONTRIBUTE.MD in our GitHub repository to learn more.
+					</p>
+					<p><a href="https://github.com/idmean/stacktextflow" class="btn btn-default btn-lg">GitHub repository</a></p>
+				</div>
+			</div>
+		</div>
+		
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+		$(function() {
+			$('a[href*=#]:not([href=#])').click(function() {
+				if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+				  var target = $(this.hash);
+				  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+				  if (target.length) {
+				    $('html,body').animate({
+				      scrollTop: target.offset().top - 66
+				    }, 1000);
+				    return false;
+				  }
+				}
+			});
+
+		});
+		</script>
+	</body>
+</html>
+
