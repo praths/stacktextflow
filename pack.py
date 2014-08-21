@@ -28,7 +28,7 @@ class TemplateEngine:
 		return ""
 
 def copyFor(rootDir, browserDir, browser):
-	bDir = os.path.join(rootDir + browserDir)
+	bDir = os.path.join(rootDir, browserDir)
 	distutils.dir_util.copy_tree(src, bDir)
 	TemplateEngine(browser).template(injectScript, os.path.join(bDir, "js", "injectScript.js"))
 
