@@ -3,7 +3,7 @@ stacktextflow
 
 The stackoverflow editor you'll love. - A browser extension that replaces the default stackoverflow editor with a powerful WYSIWYG editor.
 
-To read about features please visit: [stacktextflow.github.io](http://stacktextflow.github.io)
+To read about features please visit: [idmean.github.io/stacktextflow](http://idmean.github.io/stacktextflow/)
 
 ##Installing the alpha version of the plugin
 
