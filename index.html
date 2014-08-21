@@ -6,15 +6,15 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
-	    <meta name="author" content="">
+	    <meta name="author" content="Theo Weidmann">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href="css/cover.css" rel="stylesheet">
 		<script src="js/prefixfree.min.js"></script>
 	</head>
 	<body  data-spy="scroll">	
-		<div class="site-wrapper" data-target=".masthead-nav">
+		<div class="site-wrapper" id="home" data-target=".masthead-nav">
 			
-			<div class="site-wrapper-inner" id="home">
+			<div class="site-wrapper-inner">
 			
 				<div class="cover-container">
 					
@@ -25,7 +25,8 @@
 							<ul class="nav masthead-nav">
 								<li class="active"><a href="#home">Home</a></li>
 								<li><a href="#feautres">Features</a></li>
-								<li><a href="#help">Help us</a></li>
+								<li><a href="#download">Download</a></li>
+								<li><a href="#help">Help Us</a></li>
 							</ul>
 						</div>
 					</div>
@@ -79,10 +80,11 @@
 				<h2 class="text-center">...and much more.</h2>
 			</div>
 		</div>
-		<div class="download">	
+		<div class="download" id="download">	
 			<div class="container">
 				<h1>Download</h1>
-				<p class="lead">You can download the alpha plugin for Safari. This is just a preview and we really don't recommend using it for answering questions.</p>
+				<p class="lead">You can download the alpha version of the plugin for Safari and Chrome from our GitHub repository. We really don't recommend using it for answering questions yet. For installing see README.md.</p>
+				<p><a href="http://github.com/idmean/stacktextflow/zipball/master/" class="btn btn-default btn-lg invert"><span class="glyphicon glyphicon-download-alt"></span> Download</a></p>
 			</div>
 		</div>
 		<div class="container" id="help">	
@@ -95,7 +97,7 @@
 					<p class="lead">We need your help to create stacktextflow! Everybody who likes the idea of stacktextflow is invited to contribute. Only if a lot of people help this project can be realized.</p>
 					<p class="lead">stacktextflow is completely written in JavaScript, if you want to contribute to the code you have to know JavaScript. If you don't know JavaScript you can help anyway because we also need people creating styles, testing the plugin and reporting bugs.</p>
 					<p class="lead">
-						Read CONTRIBUTE.MD in our GitHub repository to learn more.
+						Read CONTRIBUTING.MD in our GitHub repository to learn more.
 					</p>
 					<p><a href="https://github.com/idmean/stacktextflow" class="btn btn-default btn-lg">GitHub repository</a></p>
 				</div>
