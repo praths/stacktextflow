@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+
+  "name": "stacktextflow",
+  "description": "The stackoverflow editor you'll love..",
+  "version": "1.0",
+  
+  "content_scripts": [
+    {
+      "matches": ["http://*.stackoverflow.com/*"],
+      "js": ["js/injectScript.js"]
+    }
+  ],
+  
+  "web_accessible_resources": [
+    "*"
+  ]
+  
+}
