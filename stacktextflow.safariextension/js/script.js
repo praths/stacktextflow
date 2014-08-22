@@ -278,6 +278,8 @@ var stacktextflow = {
 	changeHeading: function(){
 		if(stacktextflow.isSelectionInsideElement("h1")){
 			document.execCommand( "formatBlock", false, "h2" )
+		} else if(stacktextflow.isSelectionInsideElement("h2")) {
+			document.execCommand( 'formatBlock', false, 'div' );
 		} else {
 			document.execCommand( "formatBlock", false, "h1" );
 		}

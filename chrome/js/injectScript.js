@@ -23,7 +23,6 @@ stacktextflowInjecter = {
 	},
 	
 	receivedMessage: function(event){
-		console.log(event.data)
 		/* We received a message from the iframe */
 		if(event.data.command == "edited"){
 			stacktextflowInjecter.rti.val(event.data.value);//.keydown().change().keyup();
