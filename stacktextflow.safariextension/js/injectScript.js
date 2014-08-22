@@ -9,7 +9,7 @@ stacktextflowInjecter = {
 	
 	create: function (){
 		/* Adding the iframe */
-		stacktextflowInjecter.iframe.insertBefore( $("#post-form").hide() );
+		stacktextflowInjecter.iframe.insertBefore( $("#post-form")/* .hide() */ );
 		stacktextflowInjecter.rti = $("#wmd-input");
 		
 		window.addEventListener( "message", stacktextflowInjecter.receivedMessage, false );
@@ -25,7 +25,7 @@ stacktextflowInjecter = {
 	receivedMessage: function(event){
 		/* We received a message from the iframe */
 		if(event.data.command == "edited"){
-			stacktextflowInjecter.rti.val(event.data.value);//.keydown().change().keyup();
+			stacktextflowInjecter.rti.val(event.data.value).trigger("paste");
 		}
 		else if(event.data.command == "discard"){
 			$("#post-form").find( ".discard-answer" ).click();
