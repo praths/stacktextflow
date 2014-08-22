@@ -8,11 +8,11 @@ stacktextflowInjecter = {
 	iframe: $('<iframe src="' + chrome.runtime.getURL("index.html") + '"style="width: 100%; height: 480px; margin-top: 10px;" seamless></iframe>'),
 	
 	create: function (){
-		//Adding the iframe
-		stacktextflowInjecter.iframe.insertBefore($("#post-form").hide());
+		/* Adding the iframe */
+		stacktextflowInjecter.iframe.insertBefore( $("#post-form").hide() );
 		stacktextflowInjecter.rti = $("#wmd-input");
 		
-		window.addEventListener("message", stacktextflowInjecter.receivedMessage, false);
+		window.addEventListener( "message", stacktextflowInjecter.receivedMessage, false );
 		stacktextflowInjecter.iframe.load(function (){
 			stacktextflowInjecter.iframeContentWindow = stacktextflowInjecter.iframe.get(0).contentWindow;
 			stacktextflowInjecter.postMessage({
@@ -24,19 +24,19 @@ stacktextflowInjecter = {
 	
 	receivedMessage: function(event){
 		console.log(event.data)
-		//We received a message from the iframe
+		/* We received a message from the iframe */
 		if(event.data.command == "edited"){
 			stacktextflowInjecter.rti.val(event.data.value);//.keydown().change().keyup();
 		}
 		else if(event.data.command == "discard"){
-			$("#post-form").find(".discard-answer").click();
+			$("#post-form").find( ".discard-answer" ).click();
 		} else if(event.data.command == "post"){
 			$("#post-form").submit();
 		}
 	},
 	
 	postMessage: function (o){
-		stacktextflowInjecter.iframeContentWindow.postMessage(o,"*");
+		stacktextflowInjecter.iframeContentWindow.postMessage( o,"*" );
 	}
 	
 };
