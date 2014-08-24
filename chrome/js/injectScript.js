@@ -25,9 +25,10 @@ stacktextflowInjecter = {
 	receivedMessage: function(event){
 		/* We received a message from the iframe */
 		if(event.data.command == "edited"){
-			stacktextflowInjecter.rti.val(event.data.value).trigger("paste");
+			stacktextflowInjecter.rti.val(event.data.value).trigger("paste"); /* triggering paste will force stackoverflow editor to update it's preview. */
 		}
 		else if(event.data.command == "discard"){
+			stacktextflowInjecter.rti.focus();
 			$("#post-form").find( ".discard-answer" ).click();
 		} else if(event.data.command == "post"){
 			$("#post-form").submit();
