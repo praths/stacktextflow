@@ -40,6 +40,8 @@ var stacktextflow = {
 		stacktextflow.editor.on( "mouseup keyup focus", stacktextflow.events.changedCaretPosition );
 		
 		stacktextflow.editor.on( 'paste', stacktextflow.events.paste );
+		
+		stacktextflow.editor.keydown( stacktextflow.events.editorKeydown );
 	},
 
 	/* Setting up the Ace code editor */
@@ -68,13 +70,21 @@ var stacktextflow = {
 	/* Cotains all event handlers */
 	events: {
 	
+		editorKeydown: function(e) {
+			// trap the return key being pressed
+			if (e.keyCode === 13) {
+				document.execCommand('insertHTML', false, '<br><br>');
+				return false;
+			}
+		},
+	
 		/* The "Insert" button in the "Write Code" modal was clicked */
 		insertCode: function (){
 			$("#codeWriteModal").modal( "hide" );
 			
 			stacktextflow.restoreSelection();
 			document.execCommand( 'removeFormat', false );
-			document.execCommand( "insertHTML", false, "<div><pre>" + stacktextflow.cEditor.getValue() + "</pre></div><br />" );
+			document.execCommand( "insertHTML", false, "<pre>" + stacktextflow.cEditor.getValue() + "</pre><br /><br />" );
 			stacktextflow.events.changedCaretPosition();
 		},
 		
@@ -86,7 +96,7 @@ var stacktextflow = {
 		edited: function (){
 			stacktextflow.postMessage({ 
 				"command": "edited",
-				"value": stacktextflow.editor.html()
+				"value": toMarkdown( stacktextflow.editor.html() )
 			});
 		},
 		
@@ -167,7 +177,6 @@ var stacktextflow = {
 		document.execCommand( "createLink", false, link );
 		stacktextflow.events.changedCaretPosition();
 	},
-	
 	
 	/* Utilties for handling selection */
 	saveSelection: function() {
@@ -279,7 +288,7 @@ var stacktextflow = {
 		if(stacktextflow.isSelectionInsideElement("h1")){
 			document.execCommand( "formatBlock", false, "h2" )
 		} else if(stacktextflow.isSelectionInsideElement("h2")) {
-			document.execCommand( 'formatBlock', false, 'div' );
+			document.execCommand( 'formatBlock', false, 'div' );  //TODO Not acceptable with tomarkdown, we need to remove the heading not just replace it with a div
 		} else {
 			document.execCommand( "formatBlock", false, "h1" );
 		}
@@ -288,6 +297,10 @@ var stacktextflow = {
 	postMessage: function (o){
 		window.parent.postMessage( o, "*" );
 	},
+	
+	htmlToMarkdown: function (html){
+		markdown
+	}
 	
 };
 

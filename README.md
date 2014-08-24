@@ -20,10 +20,12 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 stacktextflow is gracefully using:
 
-jQuery, Copyright 2005, 2014 jQuery Foundation, Inc. 
-Bootsrap, Copyright 2011-2014 Twitter, Inc.
-StyleFix 1.0.3 & PrefixFree 1.0.7, Copyright Lea Verou
-bootswatch, Copyright 2012-2014 Thomas Park
+- jQuery, Copyright 2005, 2014 jQuery Foundation, Inc. 
+- Bootsrap, Copyright 2011-2014 Twitter, Inc.
+- StyleFix 1.0.3 & PrefixFree 1.0.7, Copyright Lea Verou
+- bootswatch, Copyright 2012-2014 Thomas Park
+- to-markdown, Copyright © 2011-14 Dom Christie 
+- he.js, Copyright ©  Mathias Bynens (year unknown)
 
 All of the above works are released under the MIT license.
 
