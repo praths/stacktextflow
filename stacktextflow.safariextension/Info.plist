@@ -28,6 +28,8 @@
 			</array>
 		</dict>
 	</dict>
+	<key>Description</key>
+	<string>A browser extension that replaces the default stackoverflow editor with a powerful WYSIWYG editor.</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
@@ -44,5 +46,7 @@
 			<string>Some</string>
 		</dict>
 	</dict>
+	<key>Website</key>
+	<string>http://idmean.github.io/stacktextflow/</string>
 </dict>
 </plist>
