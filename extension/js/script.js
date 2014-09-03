@@ -288,7 +288,7 @@ var stacktextflow = {
 		if(stacktextflow.isSelectionInsideElement("h1")){
 			document.execCommand( "formatBlock", false, "h2" )
 		} else if(stacktextflow.isSelectionInsideElement("h2")) {
-			document.execCommand( 'formatBlock', false, 'div' );  //TODO Not acceptable with tomarkdown, we need to remove the heading not just replace it with a div
+			document.execCommand( 'formatBlock', false, 'div' );  //TODO Not acceptable with tomarkdown, we need to remove the heading not just replace it with a div http://stackoverflow.com/questions/18337081/how-to-remove-h1-formatting-within-contenteditable-wysiwyg
 		} else {
 			document.execCommand( "formatBlock", false, "h1" );
 		}
