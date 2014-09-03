@@ -1,12 +1,12 @@
 Contributing
 ==========
-stacktextflow is a community project and wouldn't be what it is without contributions! Here's a quick guide:
+Stack Textflow is a community project and wouldn't be what it is without contributions! Here's a quick guide:
 
 Fork, then clone the repo:
 
 	git clone git@github.com:your-username/factory_girl_rails.git
 
-You need to have Python 3 installed. stacktextflow is using a small python script, `pack.py` which copies the files from the `extension` directory into the directories for each browser and it's the template engine for `injectScript.js` .  For instace this line will be parsed by the script:
+You need to have Python 3 installed. Stack Textflow is using a small python script, `pack.py` which copies the files from the `extension` directory into the directories for each browser and it's the template engine for `injectScript.js` .  For instace this line will be parsed by the script:
 
 	%{ safari: '''safari.extension.baseURI + "index.html"''' chrome: '''chrome.runtime.getURL("index.html")''' }%
 

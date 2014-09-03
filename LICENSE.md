@@ -1,8 +1,8 @@
-stacktextflow
+Stack Textflow
 
 Copyright 2014 Theo Weidmann
 
-stacktextflow is released under the GPL
+Stack Textflow is released under the GPL
 
 
                     GNU GENERAL PUBLIC LICENSE

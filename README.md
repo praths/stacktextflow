@@ -1,14 +1,14 @@
-stacktextflow
+Stack Textflow
 =============
 
-The stackoverflow editor you'll love. - A browser extension that replaces the default stackoverflow editor with a powerful WYSIWYG editor.
+The Stack Textflow editor you'll love. - A browser extension that replaces the default stackoverflow editor with a powerful WYSIWYG editor.
 
-To read about features please visit: [idmean.github.io/stacktextflow](http://idmean.github.io/stacktextflow/)
+To read about features please visit: [idmean.github.io/stacktextflow](http://idmean.github.io/Stack Textflow/)
 
 ##Installing the alpha version of the plugin
 
 ###Safari
-Make sure you have "Show Develop in menu bar" activate, which can be found under Safari > Preferences > Advanced. Then choose "Show Extension Builder" click on the "+" in the lower left and select "Add Extension". You will be asked to select a folder, select `stacktextflow.safariextension` in this repository.  Then click Install in the upper right.
+Make sure you have "Show Develop in menu bar" activate, which can be found under Safari > Preferences > Advanced. Then choose "Show Extension Builder" click on the "+" in the lower left and select "Add Extension". You will be asked to select a folder, select `Stack Textflow.safariextension` in this repository.  Then click Install in the upper right.
 
 ###Chrome
 Open the site [`chrome://extensions` ](chrome://extensions) in Chorme. Activate "Developer Mode" in the upper right,  then click "Load unpacked extension" select the folder `chrome` in this repository.
@@ -18,7 +18,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ##Credits
 
-stacktextflow is gracefully using:
+Stack Textflow is gracefully using:
 
 - jQuery, Copyright 2005, 2014 jQuery Foundation, Inc. 
 - Bootsrap, Copyright 2011-2014 Twitter, Inc.
@@ -63,10 +63,8 @@ This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
 http://scripts.sil.org/OFL
 
-
------------------------------------------------------------
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
------------------------------------------------------------
+
 
 PREAMBLE
 The goals of the Open Font License (OFL) are to stimulate worldwide
