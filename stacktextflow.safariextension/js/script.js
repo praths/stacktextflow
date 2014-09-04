@@ -94,9 +94,11 @@ var stacktextflow = {
 		
 		/* The main editor's content has changed, notify the injectScript which will update the stackexchange editor */
 		edited: function (){
+			var md = stacktextflow.decodeHtml( toMarkdown( stacktextflow.editor.html() ) );
+		
 			stacktextflow.postMessage({ 
 				"command": "edited",
-				"value": toMarkdown( stacktextflow.editor.html() )
+				"value": md 
 			});
 		},
 		
@@ -273,6 +275,12 @@ var stacktextflow = {
 		$("#linkModal").modal( "show" ).one( "shown.bs.modal", function (){
 			$("#linkField").focus();
 		});
+	},
+	
+	decodeHtml: function(html) {
+	    var txt = document.createElement("textarea");
+	    txt.innerHTML = html;
+	    return txt.value;
 	},
 
 	writeCode: function(){
