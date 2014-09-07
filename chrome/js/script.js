@@ -84,8 +84,10 @@ var stacktextflow = {
 			
 			stacktextflow.restoreSelection();
 			document.execCommand( 'removeFormat', false );
-			document.execCommand( "insertHTML", false, "<pre>" + stacktextflow.cEditor.getValue() + "</pre><br /><br />" );
+			document.execCommand( "insertHTML", false, "<pre>" + he.encode( stacktextflow.cEditor.getValue() ) + "</pre><br /><br />" );
 			stacktextflow.events.changedCaretPosition();
+			
+			stacktextflow.cEditor.setValue(""); 
 		},
 		
 		insertLink: function (){
@@ -94,7 +96,7 @@ var stacktextflow = {
 		
 		/* The main editor's content has changed, notify the injectScript which will update the stackexchange editor */
 		edited: function (){
-			var md = stacktextflow.decodeHtml( toMarkdown( stacktextflow.editor.html() ) );
+			var md = he.decode( toMarkdown( stacktextflow.editor.html() ) );
 		
 			stacktextflow.postMessage({ 
 				"command": "edited",
@@ -165,7 +167,6 @@ var stacktextflow = {
 				stacktextflow.changeHeading();
 			}
 			else {
-				console.log(cmd);
 				document.execCommand( cmd, false, e.currentTarget.getAttribute('data-value') );	
 			}
 		},
@@ -277,12 +278,6 @@ var stacktextflow = {
 		});
 	},
 	
-	decodeHtml: function(html) {
-	    var txt = document.createElement("textarea");
-	    txt.innerHTML = html;
-	    return txt.value;
-	},
-
 	writeCode: function(){
 		stacktextflow.saveSelection();
 				

@@ -112,7 +112,6 @@ var toMarkdown = function(string) {
 
   //Removed ` and ´, is there any need for them? Fixed rest of function
   string = string.replace(/<pre\b[^>]*>([\s\S]+?(?=<\/pre>))<\/pre>/gi, function(str, innerHTML) {
-  	console.log(innerHTML)
     innerHTML = innerHTML.replace(/^\t+/g, '  '); // convert tabs to spaces (you know it makes sense)
     innerHTML = innerHTML.replace(/\n/g, '\n    ');
     return '\n\n    ' + innerHTML + '\n';
