@@ -170,7 +170,7 @@ var stacktextflow = {
 			}
 		},
 		
-	},
+	}, //end events
 	
 	insertLink: function (link){
 		$("#linkModal").modal( "hide" );
@@ -304,10 +304,6 @@ var stacktextflow = {
 
 	postMessage: function (o){
 		window.parent.postMessage( o, "*" );
-	},
-	
-	htmlToMarkdown: function (html){
-		markdown
 	}
 	
 };
