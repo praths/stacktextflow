@@ -72,7 +72,7 @@ var stacktextflow = {
 	
 		editorKeydown: function(e) {
 			// trap the return key being pressed
-			if (e.keyCode === 13) {
+			if (e.keyCode === 13 && !stacktextflow.isSelectionInsideElement("li")) {
 				document.execCommand('insertHTML', false, '<br><br>');
 				return false;
 			}
@@ -218,7 +218,9 @@ var stacktextflow = {
 	    }
 	    return text;
 	},
-		
+	
+	
+	//By Tim Down	
 	isSelectionInsideElement: function(tagName) {
 	    var sel, containerNode;
 	    tagName = tagName.toUpperCase();
